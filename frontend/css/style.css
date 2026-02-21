@@ -1,0 +1,283 @@
+/* ============================================================
+   Sincro — style.css
+   ============================================================ */
+
+@import url('https://fonts.googleapis.com/css2?family=Fraunces:ital,wght@0,300;0,400;1,300&family=Geist+Mono:wght@400;500&family=Geist:wght@300;400;500&display=swap');
+
+/* ------------------------------------------------------------
+   Reset & Variables
+   ------------------------------------------------------------ */
+*, *::before, *::after {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+:root {
+    --bg: #f7f7fa;
+    --card: #ffffff;
+    --text: #2d2d3a;
+    --muted: #9090a8;
+    --border: #e2e2ee;
+    --accent: #f5a623;
+    --accent-faint: #fffbf0;
+    --accent-shadow: rgba(245, 166, 35, 0.28);
+    --secondary: #6b4fa0;
+    --secondary-faint: #f3f0fa;
+    --online: #16a34a;
+}
+
+/* ------------------------------------------------------------
+   Body & Background Effects
+   ------------------------------------------------------------ */
+body {
+    font-family: 'Geist', sans-serif;
+    background: var(--bg);
+    color: var(--text);
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 2rem;
+    position: relative;
+}
+
+/* noise texture */
+body::before {
+    content: '';
+    position: fixed;
+    inset: 0;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.035'/%3E%3C/svg%3E");
+    background-size: 200px 200px;
+    pointer-events: none;
+    z-index: 0;
+}
+
+/* subtle grid */
+body::after {
+    content: '';
+    position: fixed;
+    inset: 0;
+    background-image:
+        linear-gradient(var(--border) 1px, transparent 1px),
+        linear-gradient(90deg, var(--border) 1px, transparent 1px);
+    background-size: 40px 40px;
+    opacity: 0.5;
+    pointer-events: none;
+    z-index: 0;
+}
+
+/* ------------------------------------------------------------
+   Layout
+   ------------------------------------------------------------ */
+.wrapper {
+    position: relative;
+    z-index: 1;
+    width: 100%;
+    max-width: 380px;
+    animation: appear 0.5s cubic-bezier(0.16, 1, 0.3, 1) both;
+}
+
+@keyframes appear {
+    from { opacity: 0; transform: translateY(20px) scale(0.98); }
+    to   { opacity: 1; transform: translateY(0) scale(1); }
+}
+
+/* ------------------------------------------------------------
+   Header Area
+   ------------------------------------------------------------ */
+.header-area {
+    text-align: center;
+    margin-bottom: 2rem;
+}
+
+.logo-mark {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 48px;
+    height: 48px;
+    background: var(--accent);
+    border-radius: 14px;
+    font-size: 1.4rem;
+    margin-bottom: 1rem;
+    box-shadow: 0 8px 24px var(--accent-shadow);
+}
+
+h1 {
+    font-family: 'Fraunces', serif;
+    font-size: 2rem;
+    font-weight: 300;
+    letter-spacing: -0.02em;
+    color: var(--text);
+    margin-bottom: 0.3rem;
+}
+
+h1 em {
+    font-style: italic;
+    color: var(--secondary);
+}
+
+.subtitle {
+    font-size: 0.85rem;
+    color: var(--muted);
+}
+
+/* ------------------------------------------------------------
+   Card
+   ------------------------------------------------------------ */
+.card {
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: 16px;
+    padding: 2rem;
+    box-shadow:
+        0 1px 2px rgba(0, 0, 0, 0.04),
+        0 4px 16px rgba(45, 45, 58, 0.06);
+}
+
+/* ------------------------------------------------------------
+   API Status Badge
+   ------------------------------------------------------------ */
+.api-row {
+    display: flex;
+    align-items: center;
+    gap: 0.4rem;
+    font-family: 'Geist Mono', monospace;
+    font-size: 0.65rem;
+    color: var(--online);
+    background: #f0fdf4;
+    border: 1px solid #bbf7d0;
+    border-radius: 100px;
+    padding: 0.2rem 0.6rem;
+    width: fit-content;
+    margin-bottom: 1.5rem;
+}
+
+.dot {
+    width: 5px;
+    height: 5px;
+    background: var(--online);
+    border-radius: 50%;
+    animation: pulse 2s infinite;
+}
+
+@keyframes pulse {
+    0%, 100% { opacity: 1; }
+    50%       { opacity: 0.3; }
+}
+
+/* ------------------------------------------------------------
+   Form
+   ------------------------------------------------------------ */
+.form-group {
+    margin-bottom: 1rem;
+}
+
+label {
+    display: block;
+    font-size: 0.75rem;
+    font-weight: 500;
+    letter-spacing: 0.01em;
+    color: var(--text);
+    margin-bottom: 0.35rem;
+}
+
+input {
+    width: 100%;
+    background: var(--bg);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    color: var(--text);
+    font-family: 'Geist', sans-serif;
+    font-size: 0.875rem;
+    padding: 0.65rem 0.85rem;
+    outline: none;
+    transition: border-color 0.15s, box-shadow 0.15s;
+}
+
+input:focus {
+    border-color: var(--accent);
+    background: #fff;
+    box-shadow: 0 0 0 3px rgba(245, 166, 35, 0.12);
+}
+
+input::placeholder {
+    color: var(--muted);
+    font-size: 0.8rem;
+}
+
+/* ------------------------------------------------------------
+   Button
+   ------------------------------------------------------------ */
+.btn-primary {
+    width: 100%;
+    background: var(--text);
+    color: #fff;
+    border: none;
+    border-radius: 8px;
+    padding: 0.75rem;
+    font-family: 'Geist', sans-serif;
+    font-size: 0.875rem;
+    font-weight: 500;
+    cursor: pointer;
+    margin-top: 0.5rem;
+    transition: background 0.15s, transform 0.1s;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+}
+
+.btn-primary:hover  { background: #3d3d50; }
+.btn-primary:active { transform: scale(0.99); }
+
+.btn-arrow {
+    font-size: 1rem;
+    transition: transform 0.15s;
+}
+
+.btn-primary:hover .btn-arrow { transform: translateX(3px); }
+
+/* ------------------------------------------------------------
+   Divider
+   ------------------------------------------------------------ */
+.divider {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    margin: 1.25rem 0;
+    color: var(--muted);
+    font-size: 0.75rem;
+}
+
+.divider::before,
+.divider::after {
+    content: '';
+    flex: 1;
+    height: 1px;
+    background: var(--border);
+}
+
+/* ------------------------------------------------------------
+   Links & Footer
+   ------------------------------------------------------------ */
+.register-link {
+    text-align: center;
+    font-size: 0.8rem;
+    color: var(--muted);
+}
+
+.register-link a {
+    color: var(--secondary);
+    text-decoration: none;
+    font-weight: 500;
+}
+
+.footer-note {
+    text-align: center;
+    margin-top: 1.5rem;
+    font-size: 0.7rem;
+    color: var(--muted);
+}

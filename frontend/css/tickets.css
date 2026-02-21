@@ -1,0 +1,789 @@
+/* ============================================================
+   TicketMonitor — tickets.css
+   ============================================================ */
+
+/* ------------------------------------------------------------
+   Body override — remove efeitos de fundo do login
+   ------------------------------------------------------------ */
+body.tickets-page {
+    display: block;
+    min-height: 100vh;
+    padding: 0;
+    align-items: unset;
+    justify-content: unset;
+}
+
+body.tickets-page::before,
+body.tickets-page::after {
+    display: none;
+}
+
+/* ------------------------------------------------------------
+   Header
+   ------------------------------------------------------------ */
+.app-header {
+    position: sticky;
+    top: 0;
+    z-index: 50;
+    background: rgba(250, 249, 247, 0.92);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    border-bottom: 1px solid var(--border);
+}
+
+.app-header__inner {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 2rem;
+    height: 60px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.app-header__logo {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    font-family: 'Fraunces', serif;
+    font-size: 1.2rem;
+    font-weight: 300;
+    color: var(--text);
+    text-decoration: none;
+}
+
+.app-header__logo em {
+    font-style: italic;
+    color: var(--accent);
+}
+
+.logo-mark--sm {
+    width: 34px;
+    height: 34px;
+    font-size: 1rem;
+    margin-bottom: 0;
+    border-radius: 10px;
+    box-shadow: 0 4px 12px rgba(220, 107, 63, 0.25);
+}
+
+.app-header__right {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+}
+
+.user-menu {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.user-avatar {
+    width: 32px;
+    height: 32px;
+    background: var(--text);
+    color: #fff;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 0.65rem;
+    font-weight: 600;
+    letter-spacing: 0.02em;
+    text-transform: uppercase;
+}
+
+.user-name {
+    font-size: 0.82rem;
+    font-weight: 500;
+    color: var(--text);
+}
+
+.btn-logout {
+    background: none;
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    padding: 0.3rem 0.5rem;
+    color: var(--muted);
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    transition: color 0.15s, border-color 0.15s;
+}
+
+.btn-logout:hover {
+    color: var(--accent);
+    border-color: var(--accent);
+}
+
+/* ------------------------------------------------------------
+   Main
+   ------------------------------------------------------------ */
+.tickets-main {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 2rem;
+}
+
+/* ------------------------------------------------------------
+   Page top
+   ------------------------------------------------------------ */
+.page-top {
+    display: flex;
+    align-items: flex-end;
+    justify-content: space-between;
+    margin-bottom: 1.75rem;
+    animation: appear 0.4s cubic-bezier(0.16, 1, 0.3, 1) both;
+}
+
+.page-title {
+    font-family: 'Fraunces', serif;
+    font-size: 1.75rem;
+    font-weight: 300;
+    letter-spacing: -0.02em;
+    color: var(--text);
+    margin-bottom: 0.2rem;
+}
+
+.page-subtitle {
+    font-size: 0.8rem;
+    color: var(--muted);
+}
+
+.btn-new {
+    display: flex;
+    align-items: center;
+    gap: 0.4rem;
+    background: var(--accent);
+    color: #fff;
+    border: none;
+    border-radius: 10px;
+    padding: 0.6rem 1.1rem;
+    font-family: 'Geist', sans-serif;
+    font-size: 0.85rem;
+    font-weight: 500;
+    cursor: pointer;
+    transition: opacity 0.15s, transform 0.1s;
+    box-shadow: 0 4px 14px rgba(220, 107, 63, 0.3);
+}
+
+.btn-new:hover {
+    opacity: 0.9;
+}
+
+.btn-new:active {
+    transform: scale(0.98);
+}
+
+/* ------------------------------------------------------------
+   Toolbar
+   ------------------------------------------------------------ */
+.toolbar {
+    display: flex;
+    gap: 0.75rem;
+    margin-bottom: 1.75rem;
+    flex-wrap: wrap;
+    animation: appear 0.4s cubic-bezier(0.16, 1, 0.3, 1) 0.05s both;
+}
+
+.search-wrap {
+    position: relative;
+    flex: 1;
+    min-width: 200px;
+}
+
+.search-icon {
+    position: absolute;
+    left: 0.85rem;
+    top: 50%;
+    transform: translateY(-50%);
+    color: var(--muted);
+    pointer-events: none;
+    z-index: 1;
+}
+
+.search-input {
+    padding-left: 2.5rem !important;
+}
+
+.filter-select,
+.search-input {
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    color: var(--text);
+    font-family: 'Geist', sans-serif;
+    font-size: 0.875rem;
+    padding: 0.65rem 0.85rem;
+    outline: none;
+    transition: border-color 0.15s, box-shadow 0.15s;
+    width: 100%;
+}
+
+.search-input:focus,
+.filter-select:focus {
+    border-color: var(--accent);
+    box-shadow: 0 0 0 3px rgba(220, 107, 63, 0.1);
+}
+
+.search-input::placeholder {
+    color: var(--muted);
+    font-size: 0.8rem;
+}
+
+.filters {
+    display: flex;
+    gap: 0.75rem;
+}
+
+.filter-select {
+    width: auto;
+    padding-right: 2rem;
+    appearance: none;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 24 24' fill='none' stroke='%23a1a1aa' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='6 9 12 15 18 9'/%3E%3C/svg%3E");
+    background-repeat: no-repeat;
+    background-position: right 0.75rem center;
+    cursor: pointer;
+}
+
+/* ------------------------------------------------------------
+   Grid de tickets
+   ------------------------------------------------------------ */
+.tickets-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    gap: 1rem;
+}
+
+/* ------------------------------------------------------------
+   Card
+   ------------------------------------------------------------ */
+.ticket-card {
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: 14px;
+    padding: 1.25rem;
+    cursor: pointer;
+    transition: border-color 0.15s, box-shadow 0.15s, transform 0.15s;
+    animation: appear 0.4s cubic-bezier(0.16, 1, 0.3, 1) both;
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+}
+
+.ticket-card:hover {
+    border-color: var(--accent);
+    box-shadow: 0 4px 20px rgba(220, 107, 63, 0.1);
+    transform: translateY(-2px);
+}
+
+.ticket-card__top {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+}
+
+.ticket-card__id {
+    font-family: 'Geist Mono', monospace;
+    font-size: 0.65rem;
+    color: var(--muted);
+}
+
+.ticket-card__title {
+    font-family: 'Fraunces', serif;
+    font-size: 1rem;
+    font-weight: 400;
+    color: var(--text);
+    line-height: 1.35;
+}
+
+.ticket-card__description {
+    font-size: 0.78rem;
+    color: var(--muted);
+    line-height: 1.5;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+}
+
+.ticket-card__meta {
+    display: flex;
+    flex-direction: column;
+    gap: 0.25rem;
+    font-size: 0.75rem;
+    color: var(--muted);
+}
+
+.ticket-card__badges {
+    display: flex;
+    gap: 0.4rem;
+    flex-wrap: wrap;
+}
+
+/* ------------------------------------------------------------
+   Badges
+   ------------------------------------------------------------ */
+.badge {
+    display: inline-flex;
+    align-items: center;
+    border-radius: 100px;
+    padding: 0.2rem 0.6rem;
+    font-size: 0.65rem;
+    font-weight: 500;
+    letter-spacing: 0.02em;
+    text-transform: uppercase;
+    font-family: 'Geist Mono', monospace;
+}
+
+.badge--novo {
+    background: #eff6ff;
+    color: #2563eb;
+}
+
+.badge--orcamento {
+    background: #fefce8;
+    color: #ca8a04;
+}
+
+.badge--reparo {
+    background: #fff7ed;
+    color: #ea580c;
+}
+
+.badge--concluido {
+    background: #f0fdf4;
+    color: #16a34a;
+}
+
+.badge--arquivado {
+    background: #f4f4f5;
+    color: #71717a;
+}
+
+.badge--baixa {
+    background: #f0fdf4;
+    color: #15803d;
+}
+
+.badge--media {
+    background: #fefce8;
+    color: #a16207;
+}
+
+.badge--alta {
+    background: #fef2f2;
+    color: #dc2626;
+}
+
+/* ------------------------------------------------------------
+   Empty state
+   ------------------------------------------------------------ */
+.empty-state {
+    text-align: center;
+    padding: 5rem 2rem;
+    color: var(--muted);
+    flex-direction: column;
+    align-items: center;
+}
+
+.empty-icon {
+    font-size: 3rem;
+    margin-bottom: 1rem;
+    opacity: 0.4;
+}
+
+.empty-state h3 {
+    font-family: 'Fraunces', serif;
+    font-weight: 300;
+    font-size: 1.25rem;
+    color: var(--text);
+    margin-bottom: 0.4rem;
+}
+
+.empty-state p {
+    font-size: 0.85rem;
+}
+
+/* ------------------------------------------------------------
+   Modal overlay
+   ------------------------------------------------------------ */
+.modal-overlay {
+    position: fixed;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.35);
+    backdrop-filter: blur(4px);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 1.5rem;
+    z-index: 100;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.2s;
+}
+
+/* modal de proprietário fica acima do modal de criar */
+.modal-overlay--top {
+    z-index: 200;
+}
+
+.modal-overlay.is-open {
+    opacity: 1;
+    pointer-events: all;
+}
+
+.modal {
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: 18px;
+    width: 100%;
+    max-width: 520px;
+    max-height: 90vh;
+    overflow-y: auto;
+    box-shadow: 0 24px 64px rgba(0, 0, 0, 0.12);
+    transform: translateY(12px) scale(0.98);
+    transition: transform 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.modal-overlay.is-open .modal {
+    transform: translateY(0) scale(1);
+}
+
+.modal--wide {
+    max-width: 660px;
+}
+
+.modal--sm {
+    max-width: 400px;
+}
+
+.modal__header {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    padding: 1.5rem 1.5rem 0;
+    gap: 1rem;
+}
+
+.modal__tag {
+    font-family: 'Geist Mono', monospace;
+    font-size: 0.65rem;
+    color: var(--muted);
+    display: block;
+    margin-bottom: 0.2rem;
+}
+
+.modal__title {
+    font-family: 'Fraunces', serif;
+    font-size: 1.2rem;
+    font-weight: 300;
+    color: var(--text);
+}
+
+.modal__close {
+    background: none;
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    padding: 0.3rem;
+    color: var(--muted);
+    cursor: pointer;
+    display: flex;
+    flex-shrink: 0;
+    transition: color 0.15s, border-color 0.15s;
+}
+
+.modal__close:hover {
+    color: var(--accent);
+    border-color: var(--accent);
+}
+
+.modal__body {
+    padding: 1.25rem 1.5rem 1.5rem;
+}
+
+.modal__actions {
+    display: flex;
+    justify-content: flex-end;
+    gap: 0.6rem;
+    margin-top: 1.25rem;
+}
+
+/* ------------------------------------------------------------
+   Formulários dentro dos modais
+   ------------------------------------------------------------ */
+.form-row {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 0.75rem;
+}
+
+.modal__body .form-group {
+    margin-bottom: 0.875rem;
+}
+
+.modal__body label {
+    display: block;
+    font-size: 0.75rem;
+    font-weight: 500;
+    color: var(--text);
+    margin-bottom: 0.35rem;
+}
+
+.modal__body input,
+.modal__body select,
+.modal__body textarea {
+    width: 100%;
+    background: var(--bg);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    color: var(--text);
+    font-family: 'Geist', sans-serif;
+    font-size: 0.875rem;
+    padding: 0.65rem 0.85rem;
+    outline: none;
+    transition: border-color 0.15s, box-shadow 0.15s;
+    resize: vertical;
+}
+
+.modal__body input:focus,
+.modal__body select:focus,
+.modal__body textarea:focus {
+    border-color: var(--accent);
+    background: #fff;
+    box-shadow: 0 0 0 3px rgba(220, 107, 63, 0.1);
+}
+
+.modal__body input::placeholder,
+.modal__body textarea::placeholder {
+    color: var(--muted);
+    font-size: 0.8rem;
+}
+
+.modal__body select {
+    appearance: none;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 24 24' fill='none' stroke='%23a1a1aa' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='6 9 12 15 18 9'/%3E%3C/svg%3E");
+    background-repeat: no-repeat;
+    background-position: right 0.75rem center;
+    padding-right: 2rem;
+    cursor: pointer;
+}
+
+/* select + botão "+" lado a lado */
+.input-with-action {
+    display: flex;
+    gap: 0.4rem;
+}
+
+.input-with-action select {
+    flex: 1;
+}
+
+.btn-icon {
+    background: var(--bg);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    padding: 0 0.65rem;
+    color: var(--muted);
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    transition: color 0.15s, border-color 0.15s;
+    flex-shrink: 0;
+}
+
+.btn-icon:hover {
+    color: var(--accent);
+    border-color: var(--accent);
+}
+
+/* ------------------------------------------------------------
+   Modal detalhe — campos de exibição
+   ------------------------------------------------------------ */
+.detail-badges {
+    display: flex;
+    gap: 0.4rem;
+    margin-bottom: 1.25rem;
+}
+
+.detail-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 0.75rem;
+    background: var(--bg);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    padding: 1rem;
+}
+
+.detail-item {
+    display: flex;
+    flex-direction: column;
+    gap: 0.2rem;
+}
+
+.detail-label {
+    font-size: 0.68rem;
+    font-family: 'Geist Mono', monospace;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    color: var(--muted);
+}
+
+.detail-value {
+    font-size: 0.875rem;
+    font-weight: 500;
+    color: var(--text);
+}
+
+.detail-description {
+    font-size: 0.85rem;
+    color: var(--muted);
+    line-height: 1.6;
+    margin-top: 0.3rem;
+}
+
+.detail-divider {
+    font-size: 0.7rem;
+    font-family: 'Geist Mono', monospace;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    color: var(--muted);
+    border-top: 1px solid var(--border);
+    padding-top: 1rem;
+    margin-top: 1.25rem;
+    margin-bottom: 1rem;
+}
+
+/* ------------------------------------------------------------
+   Botões complementares
+   ------------------------------------------------------------ */
+.btn-ghost {
+    background: none;
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    padding: 0.65rem 1rem;
+    font-family: 'Geist', sans-serif;
+    font-size: 0.85rem;
+    color: var(--muted);
+    cursor: pointer;
+    transition: border-color 0.15s, color 0.15s;
+}
+
+.btn-ghost:hover {
+    border-color: var(--text);
+    color: var(--text);
+}
+
+.btn-danger {
+    background: #fef2f2;
+    border: 1px solid #fecaca;
+    border-radius: 8px;
+    padding: 0.65rem 1rem;
+    font-family: 'Geist', sans-serif;
+    font-size: 0.85rem;
+    color: #dc2626;
+    cursor: pointer;
+    transition: background 0.15s;
+    margin-right: auto;
+}
+
+.btn-danger:hover {
+    background: #fee2e2;
+}
+
+.modal__actions .btn-primary {
+    width: auto;
+    padding: 0.65rem 1.1rem;
+    border-radius: 8px;
+    margin-top: 0;
+}
+
+/* ------------------------------------------------------------
+   Toast notifications
+   ------------------------------------------------------------ */
+#toast-container {
+    position: fixed;
+    bottom: 1.5rem;
+    right: 1.5rem;
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+    z-index: 999;
+}
+
+.toast {
+    font-family: 'Geist', sans-serif;
+    font-size: 0.85rem;
+    padding: 0.75rem 1.1rem;
+    border-radius: 10px;
+    border: 1px solid transparent;
+    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.1);
+    animation: toastIn 0.25s cubic-bezier(0.16, 1, 0.3, 1) both;
+    max-width: 320px;
+}
+
+.toast--success {
+    background: #f0fdf4;
+    border-color: #bbf7d0;
+    color: #15803d;
+}
+
+.toast--error {
+    background: #fef2f2;
+    border-color: #fecaca;
+    color: #dc2626;
+}
+
+@keyframes toastIn {
+    from {
+        opacity: 0;
+        transform: translateY(8px) scale(0.97);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0) scale(1);
+    }
+}
+
+/* ------------------------------------------------------------
+   Responsive
+   ------------------------------------------------------------ */
+@media (max-width: 640px) {
+    .tickets-main {
+        padding: 1.25rem;
+    }
+
+    .page-top {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 1rem;
+    }
+
+    .btn-new {
+        width: 100%;
+        justify-content: center;
+    }
+
+    .filters {
+        flex-direction: column;
+        width: 100%;
+    }
+
+    .form-row {
+        grid-template-columns: 1fr;
+    }
+
+    .detail-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .app-header__inner {
+        padding: 0 1.25rem;
+    }
+
+    .user-name {
+        display: none;
+    }
+}

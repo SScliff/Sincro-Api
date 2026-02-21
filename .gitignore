@@ -1,0 +1,55 @@
+# ========================
+# Node.js
+# ========================
+node_modules/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# ========================
+# Environment Variables
+# ========================
+.env
+.env.local
+.env.*.local
+
+# ========================
+# Docker Data (Volumes)
+# ========================
+pgdata/
+grafana/
+
+# ========================
+# OS Files
+# ========================
+.DS_Store
+Thumbs.db
+*.swp
+*.swo
+*~
+
+# ========================
+# IDE / Editor
+# ========================
+.vscode/
+.idea/
+*.code-workspace
+
+# ========================
+# Logs
+# ========================
+logs/
+*.log
+
+# ========================
+# Build & Temp
+# ========================
+dist/
+build/
+tmp/
+.cache/
+
+# ========================
+# Proof / Screenshots (personal)
+# ========================
+proof/

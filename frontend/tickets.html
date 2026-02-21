@@ -1,0 +1,289 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tickets | Sincro</title>
+    <link rel="icon" type="image/png" href="./img/logoSincro.png">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link rel="stylesheet" href="./css/style.css">
+    <link rel="stylesheet" href="./css/tickets.css">
+</head>
+
+<body class="tickets-page">
+
+    <!-- ── HEADER ─────────────────────────────────────────── -->
+    <header class="app-header">
+        <div class="app-header__inner">
+            <div class="app-header__logo">
+                <span>Sincro<em></em></span>
+            </div>
+            <div class="app-header__right">
+                <div class="api-row">
+                    <div class="dot"></div>
+                    API ONLINE
+                </div>
+                <div class="user-menu">
+                    <div class="user-avatar" id="user-initials">--</div>
+                    <span class="user-name" id="user-name">Carregando...</span>
+                    <button class="btn-logout" id="logout-btn" title="Sair">
+                        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                            stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4" />
+                            <polyline points="16 17 21 12 16 7" />
+                            <line x1="21" y1="12" x2="9" y2="12" />
+                        </svg>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- ── MAIN ───────────────────────────────────────────── -->
+    <main class="tickets-main">
+
+        <div class="page-top">
+            <div>
+                <h2 class="page-title">Meus Tickets</h2>
+                <p class="page-subtitle" id="tickets-count">Carregando...</p>
+            </div>
+            <button class="btn-new" id="btn-new-ticket">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"
+                    stroke-linecap="round" stroke-linejoin="round">
+                    <line x1="12" y1="5" x2="12" y2="19" />
+                    <line x1="5" y1="12" x2="19" y2="12" />
+                </svg>
+                Novo ticket
+            </button>
+        </div>
+
+        <div class="toolbar">
+            <div class="search-wrap">
+                <svg class="search-icon" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                    stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <circle cx="11" cy="11" r="8" />
+                    <line x1="21" y1="21" x2="16.65" y2="16.65" />
+                </svg>
+                <input type="search" id="search-input" class="search-input" placeholder="Buscar por título...">
+            </div>
+            <div class="filters">
+                <select id="filter-status" class="filter-select">
+                    <option value="">Todos os status</option>
+                    <option value="Novo">Novo</option>
+                    <option value="em orçamento">Em orçamento</option>
+                    <option value="em reparo">Em reparo</option>
+                    <option value="concluido">Concluído</option>
+                    <option value="arquivado">Arquivado</option>
+                </select>
+                <select id="filter-priority" class="filter-select">
+                    <option value="">Todas as prioridades</option>
+                    <option value="Baixa">Baixa</option>
+                    <option value="Média">Média</option>
+                    <option value="Alta">Alta</option>
+                </select>
+            </div>
+        </div>
+
+        <div class="tickets-grid" id="tickets-grid"></div>
+
+        <div class="empty-state" id="empty-state" style="display:none;">
+            <div class="empty-icon"><img src="./img/logoSincro.png" alt=""></div>
+            <h3>Nenhum ticket encontrado</h3>
+            <p>Tente ajustar os filtros ou crie um novo ticket.</p>
+        </div>
+
+    </main>
+
+    <!-- ── MODAL: CRIAR TICKET ────────────────────────────── -->
+    <div class="modal-overlay" id="modal-create" aria-hidden="true">
+        <div class="modal">
+            <div class="modal__header">
+                <h3 class="modal__title">Novo ticket</h3>
+                <button class="modal__close" data-close="modal-create">
+                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                        stroke-linecap="round" stroke-linejoin="round">
+                        <line x1="18" y1="6" x2="6" y2="18" />
+                        <line x1="6" y1="6" x2="18" y2="18" />
+                    </svg>
+                </button>
+            </div>
+            <div class="modal__body">
+                <form id="form-create">
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="c-title">Título *</label>
+                            <input type="text" id="c-title" placeholder="Ex: Tela quebrada" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="c-model">Modelo do equipamento</label>
+                            <input type="text" id="c-model" placeholder="Ex: Dell Inspiron 15">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="c-description">Descrição</label>
+                        <textarea id="c-description" rows="3" placeholder="Descreva o problema..."></textarea>
+                    </div>
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="c-proprietary">Proprietário</label>
+                            <!-- select + botão "+" lado a lado -->
+                            <div class="input-with-action">
+                                <select id="c-proprietary">
+                                    <option value="">Selecione...</option>
+                                </select>
+                                <button type="button" class="btn-icon" id="btn-new-proprietary"
+                                    title="Novo proprietário">
+                                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                        stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                                        <line x1="12" y1="5" x2="12" y2="19" />
+                                        <line x1="5" y1="12" x2="19" y2="12" />
+                                    </svg>
+                                </button>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="c-priority">Prioridade</label>
+                            <select id="c-priority">
+                                <option value="Baixa">Baixa</option>
+                                <option value="Média">Média</option>
+                                <option value="Alta">Alta</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="c-cost">Custo estimado (R$)</label>
+                        <input type="number" id="c-cost" placeholder="0,00" step="0.01" min="0">
+                    </div>
+                    <div class="modal__actions">
+                        <button type="button" class="btn-ghost" data-close="modal-create">Cancelar</button>
+                        <button type="submit" class="btn-primary">
+                            Criar ticket <span class="btn-arrow">→</span>
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <!-- ── MODAL: NOVO PROPRIETÁRIO ──────────────────────── -->
+    <div class="modal-overlay modal-overlay--top" id="modal-proprietary" aria-hidden="true">
+        <div class="modal modal--sm">
+            <div class="modal__header">
+                <h3 class="modal__title">Novo proprietário</h3>
+                <button class="modal__close" data-close="modal-proprietary">
+                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                        stroke-linecap="round" stroke-linejoin="round">
+                        <line x1="18" y1="6" x2="6" y2="18" />
+                        <line x1="6" y1="6" x2="18" y2="18" />
+                    </svg>
+                </button>
+            </div>
+            <div class="modal__body">
+                <form id="form-proprietary">
+                    <div class="form-group">
+                        <label for="p-name">Nome *</label>
+                        <input type="text" id="p-name" placeholder="Ex: Carlos Souza" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="p-phone">Telefone</label>
+                        <input type="text" id="p-phone" placeholder="Ex: 85999990000">
+                    </div>
+                    <div class="modal__actions">
+                        <button type="button" class="btn-ghost" data-close="modal-proprietary">Cancelar</button>
+                        <button type="submit" class="btn-primary">
+                            Criar <span class="btn-arrow">→</span>
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <!-- ── MODAL: VER / EDITAR TICKET ────────────────────── -->
+    <div class="modal-overlay" id="modal-detail" aria-hidden="true">
+        <div class="modal modal--wide">
+            <div class="modal__header">
+                <div>
+                    <span class="modal__tag" id="d-id">#001</span>
+                    <h3 class="modal__title" id="d-title">Título do ticket</h3>
+                </div>
+                <button class="modal__close" data-close="modal-detail">
+                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                        stroke-linecap="round" stroke-linejoin="round">
+                        <line x1="18" y1="6" x2="6" y2="18" />
+                        <line x1="6" y1="6" x2="18" y2="18" />
+                    </svg>
+                </button>
+            </div>
+            <div class="modal__body">
+                <div class="detail-badges">
+                    <span class="badge" id="d-status-badge">Novo</span>
+                    <span class="badge" id="d-priority-badge">Baixa</span>
+                </div>
+                <div class="detail-grid">
+                    <div class="detail-item">
+                        <span class="detail-label">Proprietário</span>
+                        <span class="detail-value" id="d-proprietary">—</span>
+                    </div>
+                    <div class="detail-item">
+                        <span class="detail-label">Modelo</span>
+                        <span class="detail-value" id="d-model">—</span>
+                    </div>
+                    <div class="detail-item">
+                        <span class="detail-label">Custo</span>
+                        <span class="detail-value" id="d-cost">—</span>
+                    </div>
+                    <div class="detail-item">
+                        <span class="detail-label">Criado em</span>
+                        <span class="detail-value" id="d-created">—</span>
+                    </div>
+                </div>
+                <div class="detail-item" style="margin-top:1rem;">
+                    <span class="detail-label">Descrição</span>
+                    <p class="detail-description" id="d-description">—</p>
+                </div>
+                <div class="detail-divider">Editar ticket</div>
+                <form id="form-edit">
+                    <input type="hidden" id="e-id">
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="e-status">Status</label>
+                            <select id="e-status">
+                                <option value="Novo">Novo</option>
+                                <option value="em orçamento">Em orçamento</option>
+                                <option value="em reparo">Em reparo</option>
+                                <option value="concluido">Concluído</option>
+                                <option value="arquivado">Arquivado</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="e-priority">Prioridade</label>
+                            <select id="e-priority">
+                                <option value="Baixa">Baixa</option>
+                                <option value="Média">Média</option>
+                                <option value="Alta">Alta</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="e-cost">Custo (R$)</label>
+                            <input type="number" id="e-cost" step="0.01" min="0">
+                        </div>
+                    </div>
+                    <div class="modal__actions">
+                        <button type="button" class="btn-danger" id="btn-archive">Arquivar</button>
+                        <button type="submit" class="btn-primary">
+                            Salvar alterações <span class="btn-arrow">→</span>
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <div id="toast-container"></div>
+    <script src="./js/tickets.js"></script>
+</body>
+
+</html>

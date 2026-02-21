@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Registrar | Sincro</title>
+    <link rel="icon" type="image/png" href="./img/logoSincro.png">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link rel="stylesheet" href="./css/style.css">
+</head>
+<body>
+    <div class="wrapper">
+        <div class="header-area">
+            <div class="logo-mark"><img src="./img/logoSincro.png" alt=""></div>
+        </div>
+
+        <div class="card">
+            <div class="api-row">
+                <div class="dot"></div>
+                API ONLINE
+            </div>
+
+            <form id="register-form">
+                <div class="form-group">
+                    <label for="register-name">Nome completo</label>
+                    <input type="text" id="register-name" placeholder="João Silva" required>
+                </div>
+                <div class="form-group">
+                    <label for="register-email">Endereço de email</label>
+                    <input type="email" id="register-email" placeholder="voce@dominio.com" required>
+                </div>
+                <div class="form-group">
+                    <label for="register-password">Senha</label>
+                    <input type="password" id="register-password" placeholder="••••••••" required>
+                </div>
+                <button type="submit" id="register-btn" class="btn-primary">
+                    Criar conta
+                    <span class="btn-arrow">→</span>
+                </button>
+            </form>
+
+            <div class="divider">ou</div>
+
+            <p class="register-link">
+                Já tem uma conta? <a href="index.html">Faça login</a>
+            </p>
+        </div>
+
+        <p class="footer-note">Sincro v1.0 · Todos os direitos reservados</p>
+    </div>
+
+    <div id="toast-container"></div>
+    <script type="module" src="./js/auth.js"></script>
+</body>
+</html>
