@@ -7,9 +7,8 @@ const ticketSchema = z.object({
     description: z.string().min(5).optional().or(z.literal('')),
     priority: z.enum(['Baixa', 'Média', 'Alta']),
     model: z.string().optional().or(z.literal('')),
-    proprietary_id: z.number(),
-    cost: z.number().optional().or(z.literal(0)),
-
-}).strict()
+    proprietary_id: z.coerce.number({ invalid_type_error: 'Proprietário inválido' }).int().positive(),
+    cost: z.coerce.number().min(0).optional().default(0),
+}).strict();
 
 module.exports = { ticketSchema };

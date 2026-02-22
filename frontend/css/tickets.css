@@ -1,5 +1,5 @@
 /* ============================================================
-   TicketMonitor — tickets.css
+   Sincro — tickets.css
    ============================================================ */
 
 /* ------------------------------------------------------------
@@ -36,7 +36,6 @@ body.tickets-page::after {
     margin: 0 auto;
     padding: 0 2rem;
     height: 80px;
-    /* Aumentado de 60px para 80px */
     display: flex;
     align-items: center;
     justify-content: space-between;
@@ -177,13 +176,8 @@ body.tickets-page::after {
     box-shadow: 0 4px 14px rgba(220, 107, 63, 0.3);
 }
 
-.btn-new:hover {
-    opacity: 0.9;
-}
-
-.btn-new:active {
-    transform: scale(0.98);
-}
+.btn-new:hover  { opacity: 0.9; }
+.btn-new:active { transform: scale(0.98); }
 
 /* ------------------------------------------------------------
    Toolbar
@@ -337,30 +331,27 @@ body.tickets-page::after {
 .badge {
     display: inline-flex;
     align-items: center;
-    border-radius: 6px; /* Um pouco mais quadrado para parecer "tag" profissional */
+    border-radius: 6px;
     padding: 0.25rem 0.7rem;
     font-size: 0.62rem;
     font-weight: 600;
     letter-spacing: 0.04em;
     text-transform: uppercase;
     font-family: 'Geist Mono', monospace;
-    color: #fff !important; /* Força o texto branco para todas */
+    color: #fff !important;
 }
 
-.badge--novo { background: #2563eb; }      /* Azul Royal */
-.badge--orcamento { background: #9333ea; } /* Roxo Intenso */
-.badge--reparo { background: #ea580c; }    /* Laranja Vivo */
-.badge--concluido { background: #16a34a; } /* Verde Esmeralda */
-.badge--arquivado { background: #4b5563; } /* Grafite */
+.badge--novo      { background: #2563eb; }
+.badge--orcamento { background: #9333ea; }
+.badge--reparo    { background: #ea580c; }
+.badge--concluido { background: #16a34a; }
+.badge--arquivado { background: #4b5563; }
+.badge--baixa     { background: #059669; }
+.badge--media     { background: #d97706; }
+.badge--alta      { background: #dc2626; }
 
-/* Prioridades */
-.badge--baixa { background: #059669; }     /* Verde Árvore */
-.badge--media { background: #d97706; }     /* Âmbar Forte */
-.badge--alta { background: #dc2626; }     /* Vermelho Intenso */
-
-/* Pequena sombra para as badges no modal de detalhes */
 .detail-badges .badge {
-    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }
 
 /* ------------------------------------------------------------
@@ -388,9 +379,7 @@ body.tickets-page::after {
     margin-bottom: 0.4rem;
 }
 
-.empty-state p {
-    font-size: 0.85rem;
-}
+.empty-state p { font-size: 0.85rem; }
 
 /* ------------------------------------------------------------
    Modal overlay
@@ -410,10 +399,7 @@ body.tickets-page::after {
     transition: opacity 0.2s;
 }
 
-/* modal de proprietário fica acima do modal de criar */
-.modal-overlay--top {
-    z-index: 200;
-}
+.modal-overlay--top { z-index: 200; }
 
 .modal-overlay.is-open {
     opacity: 1;
@@ -429,7 +415,7 @@ body.tickets-page::after {
     max-height: 90vh;
     overflow: hidden;
     display: flex;
-    flex-direction: row;
+    flex-direction: column;
     box-shadow: 0 24px 64px rgba(0, 0, 0, 0.12);
     transform: translateY(12px) scale(0.98);
     transition: transform 0.25s cubic-bezier(0.16, 1, 0.3, 1);
@@ -440,12 +426,14 @@ body.tickets-page::after {
 }
 
 .modal--wide {
-    max-width: 660px;
+    max-width: 760px;
+    height: auto;
+    max-height: 80vh;
+    flex-direction: row;
+    overflow: hidden;
 }
 
-.modal--sm {
-    max-width: 400px;
-}
+.modal--sm { max-width: 400px; }
 
 .modal__header {
     display: flex;
@@ -453,6 +441,7 @@ body.tickets-page::after {
     justify-content: space-between;
     padding: 1.5rem 1.5rem 0;
     gap: 1rem;
+    flex-shrink: 0;
 }
 
 .modal__tag {
@@ -487,9 +476,7 @@ body.tickets-page::after {
     border-color: var(--accent);
 }
 
-.modal__body {
-    padding: 1.25rem 1.5rem 1.5rem;
-}
+.modal__body { padding: 1.25rem 1.5rem 1.5rem; }
 
 .modal__actions {
     display: flex;
@@ -497,6 +484,114 @@ body.tickets-page::after {
     gap: 0.6rem;
     margin-top: 1.25rem;
 }
+
+/* ------------------------------------------------------------
+   Modal detalhe — coluna esquerda (formulário)
+   ------------------------------------------------------------ */
+.modal__content {
+    flex: 1;
+    min-width: 0;
+    overflow-y: auto;
+    padding-bottom: 1.5rem;
+    scrollbar-width: thin;
+    scrollbar-color: #ddd transparent;
+}
+
+.modal__content::-webkit-scrollbar       { width: 4px; }
+.modal__content::-webkit-scrollbar-track { background: transparent; }
+.modal__content::-webkit-scrollbar-thumb { background: #ddd; border-radius: 4px; }
+
+/* ------------------------------------------------------------
+   Modal detalhe — sidebar histórico
+   ------------------------------------------------------------ */
+.modal__sidebar {
+    width: 260px;
+    flex-shrink: 0;
+    background: #fcfcfb;
+    border-left: 1px solid var(--border);
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+    min-height: 400px;
+}
+
+.modal__sidebar-header {
+    padding: 1.5rem 1.25rem 0.75rem;
+    flex-shrink: 0;
+    border-bottom: 1px solid #f0f0f0;
+}
+
+.history-list {
+    flex: 1;
+    overflow-y: auto;
+    padding: 1rem 1.25rem;
+    scrollbar-width: thin;
+    scrollbar-color: #ddd transparent;
+}
+
+.history-list::-webkit-scrollbar       { width: 4px; }
+.history-list::-webkit-scrollbar-track { background: transparent; }
+.history-list::-webkit-scrollbar-thumb { background: #ddd; border-radius: 4px; }
+
+/* ------------------------------------------------------------
+   Timeline
+   ------------------------------------------------------------ */
+.history-item {
+    position: relative;
+    padding: 0 0 1.1rem 1.1rem;
+    border-left: 2px solid #e8e8e8;
+}
+
+.history-item:last-child {
+    padding-bottom: 0;
+    border-left-color: transparent;
+}
+
+.history-item::before {
+    content: "";
+    position: absolute;
+    left: -5px;
+    top: 5px;
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background: #ccc;
+    border: 2px solid #fcfcfb;
+    box-shadow: 0 0 0 1px #ccc;
+}
+
+.history-item__card {
+    border-left: 3px solid #e2e8f0;
+    border-radius: 0 6px 6px 0;
+    background: #f8fafc;
+    padding: 0.5rem 0.65rem;
+}
+
+.history-item--status .history-item__card     { border-left-color: #3b82f6; background: #eff6ff; }
+.history-item--status::before                 { background: #3b82f6; box-shadow: 0 0 0 1px #3b82f6; }
+.history-item--prioridade .history-item__card { border-left-color: #8b5cf6; background: #f5f3ff; }
+.history-item--prioridade::before             { background: #8b5cf6; box-shadow: 0 0 0 1px #8b5cf6; }
+.history-item--custo .history-item__card      { border-left-color: #10b981; background: #ecfdf5; }
+.history-item--custo::before                  { background: #10b981; box-shadow: 0 0 0 1px #10b981; }
+.history-item--arquivamento .history-item__card { border-left-color: #f59e0b; background: #fffbeb; }
+.history-item--arquivamento::before             { background: #f59e0b; box-shadow: 0 0 0 1px #f59e0b; }
+
+.history-date {
+    display: block;
+    font-size: 0.68rem;
+    color: #9ca3af;
+    margin-bottom: 0.2rem;
+    font-weight: 500;
+}
+
+.history-item__card p {
+    font-size: 0.78rem;
+    color: #374151;
+    line-height: 1.4;
+    margin: 0;
+}
+
+.history-item__card p strong { color: #111827; }
 
 /* ------------------------------------------------------------
    Formulários dentro dos modais
@@ -507,9 +602,7 @@ body.tickets-page::after {
     gap: 0.75rem;
 }
 
-.modal__body .form-group {
-    margin-bottom: 0.875rem;
-}
+.modal__body .form-group { margin-bottom: 0.875rem; }
 
 .modal__body label {
     display: block;
@@ -559,15 +652,12 @@ body.tickets-page::after {
     cursor: pointer;
 }
 
-/* select + botão "+" lado a lado */
 .input-with-action {
     display: flex;
     gap: 0.4rem;
 }
 
-.input-with-action select {
-    flex: 1;
-}
+.input-with-action select { flex: 1; }
 
 .btn-icon {
     background: var(--bg);
@@ -672,6 +762,7 @@ body.tickets-page::after {
     border-radius: 8px;
     padding: 0.65rem 1rem;
     color: #dc2626;
+    cursor: pointer;
     transition: all 0.2s;
 }
 
@@ -685,41 +776,6 @@ body.tickets-page::after {
     padding: 0.65rem 1.1rem;
     border-radius: 8px;
     margin-top: 0;
-}
-
-/* Coluna da esquerda (seu formulário atual) */
-.modal__content {
-    flex: 1;
-    overflow-y: auto;
-    padding-bottom: 1.5rem;
-}
-
-/* Coluna da direita (o histórico) */
-.modal__sidebar {
-    width: 280px;
-    background: #fcfcfb;
-    /* Um tom levemente diferente para destacar */
-    border-left: 1px solid var(--border);
-    display: flex;
-    flex-direction: column;
-    overflow-y: auto;
-}
-
-.modal__sidebar-header {
-    padding: 1.5rem 1.25rem 0.5rem;
-}
-
-.history-list {
-    padding: 0 1.25rem 1.5rem;
-}
-
-.history-item {
-    padding: 0.75rem 0;
-    border-bottom: 1px solid #f0f0f0;
-}
-
-.history-item:last-child {
-    border-bottom: none;
 }
 
 /* ------------------------------------------------------------
@@ -746,37 +802,22 @@ body.tickets-page::after {
     max-width: 320px;
 }
 
-.toast--success {
-    background: #f0fdf4;
-    border-color: #bbf7d0;
-    color: #15803d;
-}
-
-.toast--error {
-    background: #fef2f2;
-    border-color: #fecaca;
-    color: #dc2626;
-}
+.toast--success { background: #f0fdf4; border-color: #bbf7d0; color: #15803d; }
+.toast--error   { background: #fef2f2; border-color: #fecaca; color: #dc2626; }
+.toast--info    { background: #eff6ff; border-color: #bfdbfe; color: #1d4ed8; }
 
 @keyframes toastIn {
-    from {
-        opacity: 0;
-        transform: translateY(8px) scale(0.97);
-    }
-
-    to {
-        opacity: 1;
-        transform: translateY(0) scale(1);
-    }
+    from { opacity: 0; transform: translateY(8px) scale(0.97); }
+    to   { opacity: 1; transform: translateY(0) scale(1); }
 }
 
 /* ------------------------------------------------------------
    Responsive
    ------------------------------------------------------------ */
 @media (max-width: 640px) {
-    .tickets-main {
-        padding: 1.25rem;
-    }
+    .tickets-main      { padding: 1.25rem; }
+    .app-header__inner { padding: 0 1.25rem; }
+    .user-name         { display: none; }
 
     .page-top {
         flex-direction: column;
@@ -794,19 +835,19 @@ body.tickets-page::after {
         width: 100%;
     }
 
-    .form-row {
-        grid-template-columns: 1fr;
+    .form-row,
+    .detail-grid { grid-template-columns: 1fr; }
+
+    /* Modal detalhe em mobile: empilha vertical */
+    .modal--wide {
+        flex-direction: column;
+        height: 95vh;
     }
 
-    .detail-grid {
-        grid-template-columns: 1fr;
-    }
-
-    .app-header__inner {
-        padding: 0 1.25rem;
-    }
-
-    .user-name {
-        display: none;
+    .modal__sidebar {
+        width: 100%;
+        height: 220px;
+        border-left: none;
+        border-top: 1px solid var(--border);
     }
 }

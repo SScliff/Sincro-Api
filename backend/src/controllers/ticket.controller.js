@@ -230,10 +230,10 @@ exports.getTicketLogs = async (req, res, next) => {
     const { id } = req.params;
     try {
         const result = await db.query(
-            'SELECT * FROM ticket_logs WHERE ticket_id = $1',
+            'SELECT * FROM ticket_logs WHERE ticket_id = $1 ORDER BY created_at DESC',
             [id]
         );
-        return result.rows;
+        return res.status(200).json(result.rows);
     } catch (error) {
         next(error);
     }
