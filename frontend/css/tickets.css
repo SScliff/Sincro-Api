@@ -35,7 +35,8 @@ body.tickets-page::after {
     max-width: 1200px;
     margin: 0 auto;
     padding: 0 2rem;
-    height: 60px;
+    height: 80px;
+    /* Aumentado de 60px para 80px */
     display: flex;
     align-items: center;
     justify-content: space-between;
@@ -57,13 +58,22 @@ body.tickets-page::after {
     color: var(--accent);
 }
 
-.logo-mark--sm {
-    width: 34px;
-    height: 34px;
-    font-size: 1rem;
-    margin-bottom: 0;
-    border-radius: 10px;
-    box-shadow: 0 4px 12px rgba(220, 107, 63, 0.25);
+.logo_mark_sm_img {
+    height: 100%;
+    width: auto;
+    display: block;
+    object-fit: contain;
+}
+
+.logo_mark_sm {
+    width: 120px;
+    height: 40px;
+    background: transparent;
+    box-shadow: none;
+    border-radius: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
 
 .app-header__right {
@@ -327,53 +337,30 @@ body.tickets-page::after {
 .badge {
     display: inline-flex;
     align-items: center;
-    border-radius: 100px;
-    padding: 0.2rem 0.6rem;
-    font-size: 0.65rem;
-    font-weight: 500;
-    letter-spacing: 0.02em;
+    border-radius: 6px; /* Um pouco mais quadrado para parecer "tag" profissional */
+    padding: 0.25rem 0.7rem;
+    font-size: 0.62rem;
+    font-weight: 600;
+    letter-spacing: 0.04em;
     text-transform: uppercase;
     font-family: 'Geist Mono', monospace;
+    color: #fff !important; /* Força o texto branco para todas */
 }
 
-.badge--novo {
-    background: #eff6ff;
-    color: #2563eb;
-}
+.badge--novo { background: #2563eb; }      /* Azul Royal */
+.badge--orcamento { background: #9333ea; } /* Roxo Intenso */
+.badge--reparo { background: #ea580c; }    /* Laranja Vivo */
+.badge--concluido { background: #16a34a; } /* Verde Esmeralda */
+.badge--arquivado { background: #4b5563; } /* Grafite */
 
-.badge--orcamento {
-    background: #fefce8;
-    color: #ca8a04;
-}
+/* Prioridades */
+.badge--baixa { background: #059669; }     /* Verde Árvore */
+.badge--media { background: #d97706; }     /* Âmbar Forte */
+.badge--alta { background: #dc2626; }     /* Vermelho Intenso */
 
-.badge--reparo {
-    background: #fff7ed;
-    color: #ea580c;
-}
-
-.badge--concluido {
-    background: #f0fdf4;
-    color: #16a34a;
-}
-
-.badge--arquivado {
-    background: #f4f4f5;
-    color: #71717a;
-}
-
-.badge--baixa {
-    background: #f0fdf4;
-    color: #15803d;
-}
-
-.badge--media {
-    background: #fefce8;
-    color: #a16207;
-}
-
-.badge--alta {
-    background: #fef2f2;
-    color: #dc2626;
+/* Pequena sombra para as badges no modal de detalhes */
+.detail-badges .badge {
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
 }
 
 /* ------------------------------------------------------------
@@ -440,7 +427,9 @@ body.tickets-page::after {
     width: 100%;
     max-width: 520px;
     max-height: 90vh;
-    overflow-y: auto;
+    overflow: hidden;
+    display: flex;
+    flex-direction: row;
     box-shadow: 0 24px 64px rgba(0, 0, 0, 0.12);
     transform: translateY(12px) scale(0.98);
     transition: transform 0.25s cubic-bezier(0.16, 1, 0.3, 1);
@@ -525,9 +514,10 @@ body.tickets-page::after {
 .modal__body label {
     display: block;
     font-size: 0.75rem;
-    font-weight: 500;
+    font-weight: 600;
     color: var(--text);
-    margin-bottom: 0.35rem;
+    margin-bottom: 0.45rem;
+    margin-top: 0.5rem;
 }
 
 .modal__body input,
@@ -609,11 +599,11 @@ body.tickets-page::after {
 .detail-grid {
     display: grid;
     grid-template-columns: 1fr 1fr;
-    gap: 0.75rem;
-    background: var(--bg);
+    gap: 1.2rem;
+    background: #f9fafb;
     border: 1px solid var(--border);
-    border-radius: 10px;
-    padding: 1rem;
+    border-radius: 12px;
+    padding: 1.25rem;
 }
 
 .detail-item {
@@ -623,11 +613,12 @@ body.tickets-page::after {
 }
 
 .detail-label {
-    font-size: 0.68rem;
+    font-size: 0.6rem;
     font-family: 'Geist Mono', monospace;
     text-transform: uppercase;
-    letter-spacing: 0.06em;
+    letter-spacing: 0.08em;
     color: var(--muted);
+    font-weight: 600;
 }
 
 .detail-value {
@@ -676,20 +667,17 @@ body.tickets-page::after {
 }
 
 .btn-danger {
-    background: #fef2f2;
+    background: transparent;
     border: 1px solid #fecaca;
     border-radius: 8px;
     padding: 0.65rem 1rem;
-    font-family: 'Geist', sans-serif;
-    font-size: 0.85rem;
     color: #dc2626;
-    cursor: pointer;
-    transition: background 0.15s;
-    margin-right: auto;
+    transition: all 0.2s;
 }
 
 .btn-danger:hover {
-    background: #fee2e2;
+    background: #fef2f2;
+    border-color: #dc2626;
 }
 
 .modal__actions .btn-primary {
@@ -697,6 +685,41 @@ body.tickets-page::after {
     padding: 0.65rem 1.1rem;
     border-radius: 8px;
     margin-top: 0;
+}
+
+/* Coluna da esquerda (seu formulário atual) */
+.modal__content {
+    flex: 1;
+    overflow-y: auto;
+    padding-bottom: 1.5rem;
+}
+
+/* Coluna da direita (o histórico) */
+.modal__sidebar {
+    width: 280px;
+    background: #fcfcfb;
+    /* Um tom levemente diferente para destacar */
+    border-left: 1px solid var(--border);
+    display: flex;
+    flex-direction: column;
+    overflow-y: auto;
+}
+
+.modal__sidebar-header {
+    padding: 1.5rem 1.25rem 0.5rem;
+}
+
+.history-list {
+    padding: 0 1.25rem 1.5rem;
+}
+
+.history-item {
+    padding: 0.75rem 0;
+    border-bottom: 1px solid #f0f0f0;
+}
+
+.history-item:last-child {
+    border-bottom: none;
 }
 
 /* ------------------------------------------------------------
