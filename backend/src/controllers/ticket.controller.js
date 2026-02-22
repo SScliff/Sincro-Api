@@ -211,3 +211,30 @@ exports.delete = async (req, res, next) => {
         next(error);
     }
 };
+
+exports.logTicketAction = async (req, res, next) => {
+    const { id } = req.params;
+    const { action } = req.body;
+    try {
+        const result = await db.query(
+            'INSERT INTO ticket_logs (ticket_id, usuario_nome, acao) VALUES ($1, $2, $3)',
+            [id, req.user.name, action]
+        );
+        return result.rows[0];
+    } catch (error) {
+        next(error);
+    }
+};
+
+exports.getTicketLogs = async (req, res, next) => {
+    const { id } = req.params;
+    try {
+        const result = await db.query(
+            'SELECT * FROM ticket_logs WHERE ticket_id = $1',
+            [id]
+        );
+        return result.rows;
+    } catch (error) {
+        next(error);
+    }
+};

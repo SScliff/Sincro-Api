@@ -37,3 +37,14 @@ CREATE TABLE IF NOT EXISTS tickets (
     created_at TIMESTAMP WITH TIME ZONE DEFAULT CURRENT_TIMESTAMP,
     updated_at TIMESTAMP WITH TIME ZONE DEFAULT CURRENT_TIMESTAMP
 );
+
+-- ============================================================
+-- ticket_logs Table
+-- ============================================================
+CREATE TABLE IF NOT EXISTS ticket_logs (
+    id SERIAL PRIMARY KEY,
+    ticket_id INT NOT NULL REFERENCES tickets(id) ON DELETE CASCADE,
+    usuario_nome VARCHAR(100) NOT NULL,
+    acao TEXT NOT NULL,
+    created_at TIMESTAMP WITH TIME ZONE DEFAULT CURRENT_TIMESTAMP
+);

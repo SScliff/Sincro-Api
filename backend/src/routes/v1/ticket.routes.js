@@ -13,5 +13,8 @@ router.get('/:id', ticketController.findOne);
 router.patch('/:id', ticketController.update);
 router.delete('/:id', ticketController.delete);
 router.patch('/:id/archive', ticketController.archive);
+router.post('/:id/log', ticketController.logTicketAction);
+router.get('/:id/log', ticketController.getTicketLogs);
+
 
 module.exports = router;
