@@ -1,6 +1,6 @@
-# API Documentation
+# Documentação da API
 
-Base URL: `/api/v1`
+URL Base: `/api/v1`
 
 ---
 
@@ -93,7 +93,7 @@ Cria um novo ticket.
 | `proprietary_id` | int | ❌ | ID de um proprietário cadastrado |
 | `cost` | float | ❌ | — |
 
-**Response `201`** — retorna o ticket criado com `status: "Novo"` e `is_archived: false`.
+**Response `201`** — retorna o ticket criado com `status: "Novo"`, `is_archived: false` e associado ao `user_id` autenticado.
 
 ---
 
@@ -125,7 +125,7 @@ GET /api/v1/tickets?archived=true
     "proprietary_id": 3,
     "proprietary_name": "Carlos Souza",
     "proprietary_phone": "85999990000",
-    "cost": 450.00,
+    "cost": "450.00",
     "description": "Tela do notebook trincada no canto superior",
     "status": "Novo",
     "priority": "Alta",
@@ -140,7 +140,7 @@ GET /api/v1/tickets?archived=true
 ---
 
 ### `GET /tickets/:id`
-Retorna um ticket específico pelo ID.
+Retorna um ticket específico pelo ID (apenas se pertencer ao usuário autenticado).
 
 **Response `200`** — mesmo schema do item acima, objeto único.
 
@@ -152,7 +152,7 @@ Retorna um ticket específico pelo ID.
 ---
 
 ### `PATCH /tickets/:id`
-Atualiza parcialmente um ticket. Envie apenas os campos que deseja alterar.
+Atualiza parcialmente um ticket. Envie apenas os campos que deseja alterar. O ticket deve pertencer ao usuário logado.
 
 **Body (todos opcionais)**
 ```json
@@ -198,6 +198,59 @@ Remove permanentemente um ticket. Esta ação não pode ser desfeita.
 **Response `200`**
 ```json
 { "message": "Ticket apagado com sucesso" }
+```
+
+---
+
+## Logs de Tickets
+
+> Todas as rotas de log requerem autenticação via `Authorization: Bearer <token>`.
+
+### `POST /tickets/:id/log`
+Cria um histórico de ação (log) para um ticket específico. Utiliza o nome do usuário autenticado para registrar quem executou a ação.
+*(Atenção: A implementação atual da API não envia resposta formatada via res.status().json() para esta rota. A requisição não fará round-trip completo sem edição de código)*.
+
+**Body**
+```json
+{
+  "action": "Teste de carga de tela realizado"
+}
+```
+
+**Response (Comportamento Interno)**
+```json
+{
+  "id": 1,
+  "ticket_id": 1,
+  "usuario_nome": "João Silva",
+  "acao": "Teste de carga de tela realizado",
+  "created_at": "2025-01-01T00:00:00Z"
+}
+```
+
+---
+
+### `GET /tickets/:id/log`
+Retorna todo o histórico de logs/ações do ticket informado, do mais recente ao mais antigo.
+
+**Response `200`**
+```json
+[
+  {
+    "id": 2,
+    "ticket_id": 1,
+    "usuario_nome": "João Silva",
+    "acao": "Manutenção finalizada",
+    "created_at": "2025-01-02T10:00:00Z"
+  },
+  {
+    "id": 1,
+    "ticket_id": 1,
+    "usuario_nome": "João Silva",
+    "acao": "Ticket aberto para análise",
+    "created_at": "2025-01-01T09:00:00Z"
+  }
+]
 ```
 
 ---
